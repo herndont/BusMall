@@ -1,5 +1,10 @@
+*{
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+}
 body {
-    background:radial-gradient(#18ad31, #fff) fixed;
+    background:radial-gradient(#f5f2f2, rgb(243, 113, 113)) fixed;
 }
 header{
     background-image: url(../img/design_img/pexels-photo-1494582.jpeg);
@@ -32,6 +37,20 @@ article{
 content img{
     padding: 25px;
     width:20%;
+}
+
+content div input{
+    display: inline-block;
+    float: center;
+    width: 300px;
+}
+
+content input{
+    width: 40%;
+    display: inline-block;
+}
+content p{
+    padding-bottom: 80px;
 }
 
 footer{
