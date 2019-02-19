@@ -1,7 +1,7 @@
 'use strict'
 
 //Global Vars
-//  All of the object products located in all_products
+//  # of votes located in product_votes
 var product_votes=25;
 //  objects or products currently displayed on the page
 var starting_displayed_left;
