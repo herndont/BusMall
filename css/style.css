@@ -33,24 +33,33 @@ header h1{
 article{
     float: left;
 }
-
-content img{
-    padding: 25px;
-    width:20%;
-}
-
-content div input{
+content > div{
     display: inline-block;
-    float: center;
-    width: 300px;
+    
 }
-
-content input{
-    width: 40%;
+/* #first{
+    float: left;
+}
+#second{
+    float: center;
+}
+#third{
+    float: right;
+} */
+content div img{
+    padding: 25px;
+    width: 20%;
+}
+content > div > input{
+    width: 50px;
+}
+#button{
+    width: 30%;
     display: inline-block;
 }
 content p{
     padding-bottom: 80px;
+    width: 100%;
 }
 
 footer{
