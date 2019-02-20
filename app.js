@@ -52,25 +52,75 @@ new Product ('water-can', './img/water-can.jpg');
 new Product ('wine-glass', './img/wine-glass.jpg');
 
 
-// var render_product = function(product, target_img, target_input){
-//   target_img.src = product.url;
-// };
-
-//commented out above to try the prototype function below.
 Product.prototype.render_as_img = function(target_img){
   target_img.src = this.url;
 };
+
+function chart_image(){
+  var product_click_data = [];
+  for(var j = 0; j < product_catalogue.length; j++){
+    product_click_data.push(product_catalogue[j].clicked_on_count);
+  }
+
+  var product_click_labels = [];
+  for(var k = 0; k < product_catalogue.length; k++){
+    product_click_labels.push(product_catalogue[k].name);
+  }
+  var ctx = document.getElementById('results').getContext('2d');
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: product_click_labels,
+      datasets: [{
+        label: 'Results',
+        data: product_click_data,
+        backgroundColor: [
+          'grey',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      animation: {
+        easing: 'easeInCirc',
+        duration: 1000
+      }
+    }
+  });
+}
 
 function handle_submit_event(submit) {
   submit.preventDefault();
   if(product_votes <=0){
     alert('You have used all of your available votes. Thanks for you cooperation.');
     var myElement = document.getElementById('outcomes');
-    for(var i=0; i<=product_catalogue.length; i++){
+    for(var i=0; i<product_catalogue.length; i++){
       var li_el=document.createElement('li');
       li_el.textContent = (product_catalogue[i].name +': '+ product_catalogue[i].clicked_on_count + '/' + product_catalogue[i].appeared +' = '+ product_catalogue[i].clicked_on_count / product_catalogue[i].appeared);
       myElement.appendChild(li_el);
     }
+    chart_image();
     return;
   }
   if(submit.target.choice.value === ''){
@@ -93,9 +143,7 @@ function handle_submit_event(submit) {
   if(submit.target.choice.value ==='Option #3'){
     currently_displayed_right.clicked_on_count++;
   }
-  console.log(product_votes);
   random_image();
-
 }
 
 document.getElementById('all_products').addEventListener('submit', handle_submit_event);
@@ -115,5 +163,7 @@ function random_image(){
 }
 random_image();
 
-//creation of totals
+
+//Chart below
+
 

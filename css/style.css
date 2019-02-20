@@ -59,6 +59,12 @@ content p{
     position: relative;
     top: 50px;
 }
+content div{
+    width: 900px;
+    height: 600px;
+    display: block;
+    margin: auto;
+}
 
 footer{
     height: 133px;
