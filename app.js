@@ -34,9 +34,9 @@ var Product = function(name, url){
 //Creating the products into objects
 new Product ('bag', './img/bag.jpg');
 new Product ('banana', './img/banana.jpg');
-new Product ('bathroom', './img/boots.jpg');
-new Product ('breakfast', './img/breakfast.jpg');
+new Product ('bathroom', './img/bathroom.jpg');
 new Product ('boots', './img/boots.jpg');
+new Product ('breakfast', './img/breakfast.jpg');
 new Product ('bubblegum', './img/bubblegum.jpg');
 new Product ('chair', './img/chair.jpg');
 new Product ('cthulhu', './img/cthulhu.jpg');
@@ -73,18 +73,18 @@ right_display_input = product_catalogue[2];
 function handle_submit_event(submit) {
   submit.preventDefault();
   product_votes --;
-  console.log(submit.target);
-  if(submit.target.id.name.value ==='Option #1'.checked){
-    currently_displayed_left.clicked_on_count++;
+ 
+  if(submit.target.choice.value ==='Option #1'){
+    left_display_img.clicked_on_count++;
+    left_display_img.appeared++;
   }
-  if(submit.target.id.name.value ==='Option #2'.checked){
+  if(submit.target.choice.value ==='Option #2'){
     currently_displayed_center.clicked_on_count++;
   }
-  if(submit.target.id.name.value ==='Option #3'.checked){
+  if(submit.target.choice.value ==='Option #3'){
     currently_displayed_right.clicked_on_count++;
   }
 }
-console.log('clicks');
 console.log(left_display_img);
 console.log(center_display_img);
 console.log(right_display_img);
