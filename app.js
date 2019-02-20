@@ -2,21 +2,18 @@
 
 //Global Vars
 //  # of votes located in product_votes
-var product_votes=25;
+var product_votes=10;
 //  objects or products currently displayed on the page
 var currently_displayed_left;
 var currently_displayed_center;
 var currently_displayed_right;
 
-var product_container = document.getElementById('all_products');
+// var product_container = document.getElementById('all_products');
 
 
 var left_display_img = document.getElementById('left_product');
-var left_display_input = document.getElementById('left_input');
 var center_display_img = document.getElementById('center_product');
-var center_display_input = document.getElementById('center_input');
 var right_display_img = document.getElementById('right_product');
-var right_display_input = document.getElementById('right_input');
 
 //  Array of all products
 var product_catalogue=[];
@@ -31,6 +28,7 @@ var Product = function(name, url){
 
   product_catalogue.push(this);
 };
+
 //Creating the products into objects
 new Product ('bag', './img/bag.jpg');
 new Product ('banana', './img/banana.jpg');
@@ -63,20 +61,31 @@ Product.prototype.render_as_img = function(target_img){
   target_img.src = this.url;
 };
 
-left_display_img = product_catalogue[0];
-left_display_input = product_catalogue[0];
-center_display_img = product_catalogue[1];
-center_display_input = product_catalogue[1];
-right_display_img = product_catalogue[2];
-right_display_input = product_catalogue[2];
-
 function handle_submit_event(submit) {
   submit.preventDefault();
+  if(product_votes <=0){
+    alert('You have used all of your available votes. Thanks for you cooperation.');
+    var myElement = document.getElementById('outcomes');
+    for(var i=0; i<=product_catalogue.length; i++){
+      var li_el=document.createElement('li');
+      li_el.textContent = (product_catalogue[i].name +': '+ product_catalogue[i].clicked_on_count + '/' + product_catalogue[i].appeared +' = '+ product_catalogue[i].clicked_on_count / product_catalogue[i].appeared);
+      myElement.appendChild(li_el);
+    }
+    return;
+  }
+  if(submit.target.choice.value === ''){
+    alert('Please select a product.');
+    return;
+  }
   product_votes --;
- 
+
+  currently_displayed_left.appeared++;
+  currently_displayed_center.appeared++;
+  currently_displayed_right.appeared++;
+
+
   if(submit.target.choice.value ==='Option #1'){
-    left_display_img.clicked_on_count++;
-    left_display_img.appeared++;
+    currently_displayed_left.clicked_on_count++;
   }
   if(submit.target.choice.value ==='Option #2'){
     currently_displayed_center.clicked_on_count++;
@@ -84,26 +93,27 @@ function handle_submit_event(submit) {
   if(submit.target.choice.value ==='Option #3'){
     currently_displayed_right.clicked_on_count++;
   }
-}
-console.log(left_display_img);
-console.log(center_display_img);
-console.log(right_display_img);
+  console.log(product_votes);
+  random_image();
 
-if(product_votes <=0){
-  product_container.removeEventListener('submit', handle_submit_event);
 }
 
 document.getElementById('all_products').addEventListener('submit', handle_submit_event);
 
-var random1 = Math.floor(Math.random() * product_catalogue.length);
-var random2 = Math.floor(Math.random() * product_catalogue.length);
-var random3 = Math.floor(Math.random() * product_catalogue.length);
+function random_image(){
+  var random1 = Math.floor(Math.random() * product_catalogue.length);
+  var random2 = Math.floor(Math.random() * product_catalogue.length);
+  var random3 = Math.floor(Math.random() * product_catalogue.length);
 
-product_catalogue[random1].render_as_img(left_display_img);
-product_catalogue[random2].render_as_img(center_display_img);
-product_catalogue[random3].render_as_img(right_display_img);
+  product_catalogue[random1].render_as_img(left_display_img);
+  product_catalogue[random2].render_as_img(center_display_img);
+  product_catalogue[random3].render_as_img(right_display_img);
 
-currently_displayed_left = product_catalogue[random1];
-currently_displayed_center = product_catalogue[random2];
-currently_displayed_right = product_catalogue[random3];
+  currently_displayed_left = product_catalogue[random1];
+  currently_displayed_center = product_catalogue[random2];
+  currently_displayed_right = product_catalogue[random3];
+}
+random_image();
+
+//creation of totals
 
