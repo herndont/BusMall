@@ -36,6 +36,7 @@ form > div{
 }
 form div img{
     width: 200px;
+    height: 200px;
     padding: 30px;
     position: relative;
     left: 140px;
