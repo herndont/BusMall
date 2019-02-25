@@ -49,9 +49,8 @@ form > div > input{
 }
 #button{
     padding: 40px, 0px, 40px, 0px;
-    width: 250px;
-    position: relative;
-    right: 600px;
+    width: 350px;
+    float: center;
     top: 20px;
 }
 content p{
