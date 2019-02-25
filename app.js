@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
 //Global Vars
 //  # of votes located in product_votes
-var product_votes=10;
+var product_votes=25;
 //  objects or products currently displayed on the page
 var currently_displayed_left;
 var currently_displayed_center;
@@ -27,33 +27,6 @@ var Product = function(name, url){
   this.appeared= 0;
 
   product_catalogue.push(this);
-};
-
-//Creating the products into objects
-new Product ('bag', './img/bag.jpg');
-new Product ('banana', './img/banana.jpg');
-new Product ('bathroom', './img/bathroom.jpg');
-new Product ('boots', './img/boots.jpg');
-new Product ('breakfast', './img/breakfast.jpg');
-new Product ('bubblegum', './img/bubblegum.jpg');
-new Product ('chair', './img/chair.jpg');
-new Product ('cthulhu', './img/cthulhu.jpg');
-new Product ('dog-duck', './img/dog-duck.jpg');
-new Product ('dragon', './img/dragon.jpg');
-new Product ('pen', './img/pen.jpg');
-new Product ('pet-sweep', './img/pet-sweep.jpg');
-new Product ('scissors', './img/scissors.jpg');
-new Product ('shark', './img/shark.jpg');
-new Product ('sweep', './img/sweep.png');
-new Product ('tauntaun', './img/tauntaun.jpg');
-new Product ('unicorn', './img/unicorn.jpg');
-new Product ('usb', './img/usb.gif');
-new Product ('water-can', './img/water-can.jpg');
-new Product ('wine-glass', './img/wine-glass.jpg');
-
-
-Product.prototype.render_as_img = function(target_img){
-  target_img.src = this.url;
 };
 
 function chart_image(){
@@ -120,6 +93,10 @@ function handle_submit_event(submit) {
       li_el.textContent = (product_catalogue[i].name +': '+ product_catalogue[i].clicked_on_count + '/' + product_catalogue[i].appeared +' = '+ product_catalogue[i].clicked_on_count / product_catalogue[i].appeared);
       myElement.appendChild(li_el);
     }
+    var stringy_products = JSON.stringify(product_catalogue); //saving product data
+    localStorage.setItem('all_products', stringy_products);
+    console.log('products data saved to local storage');
+
     chart_image();
     return;
   }
@@ -153,17 +130,44 @@ function random_image(){
   var random2 = Math.floor(Math.random() * product_catalogue.length);
   var random3 = Math.floor(Math.random() * product_catalogue.length);
 
-  product_catalogue[random1].render_as_img(left_display_img);
-  product_catalogue[random2].render_as_img(center_display_img);
-  product_catalogue[random3].render_as_img(right_display_img);
+  left_display_img.src = product_catalogue[random1].url;
+  center_display_img.src = product_catalogue[random2].url;
+  right_display_img.src = product_catalogue[random3].url;
 
   currently_displayed_left = product_catalogue[random1];
   currently_displayed_center = product_catalogue[random2];
   currently_displayed_right = product_catalogue[random3];
 }
+
+if(localStorage.getItem('all_products')){
+  var stringy_products = localStorage.getItem('all_products'); //take the products out of local Storage, they are still stringified json
+  product_catalogue = JSON.parse(stringy_products); // convert the stringified array back to a readable array
+  console.log(product_catalogue);
+  console.log(`retrieved ${product_catalogue.length} products from local storage`);
+} else {// if not, create new products for the first time
+  new Product ('bag', './img/bag.jpg');
+  new Product ('banana', './img/banana.jpg');
+  new Product ('bathroom', './img/bathroom.jpg');
+  new Product ('boots', './img/boots.jpg');
+  new Product ('breakfast', './img/breakfast.jpg');
+  new Product ('bubblegum', './img/bubblegum.jpg');
+  new Product ('chair', './img/chair.jpg');
+  new Product ('cthulhu', './img/cthulhu.jpg');
+  new Product ('dog-duck', './img/dog-duck.jpg');
+  new Product ('dragon', './img/dragon.jpg');
+  new Product ('pen', './img/pen.jpg');
+  new Product ('pet-sweep', './img/pet-sweep.jpg');
+  new Product ('scissors', './img/scissors.jpg');
+  new Product ('shark', './img/shark.jpg');
+  new Product ('sweep', './img/sweep.png');
+  new Product ('tauntaun', './img/tauntaun.jpg');
+  new Product ('unicorn', './img/unicorn.jpg');
+  new Product ('usb', './img/usb.gif');
+  new Product ('water-can', './img/water-can.jpg');
+  new Product ('wine-glass', './img/wine-glass.jpg');
+  console.log('created brand new products');
+}
 random_image();
 
-
-//Chart below
 
 
